@@ -6,9 +6,9 @@ const jwt = require("jsonwebtoken");
 const { body, validationResult } = require("express-validator");
 const JWT_TOKEN = "imvishalchauhan";
 
-//create a new user without login
+//Route 1 :create a new user without login
 router.post(
-  "/",
+  "/create",
   [
     body("email", "Enter a valid email address").isEmail(),
     body("name", "Enter a valid name").isLength({ min: 3 }),
@@ -41,9 +41,46 @@ router.post(
           id: user.id,
         },
       };
+      //JWT token generation
       const authToken = jwt.sign(data, JWT_TOKEN);
       console.log(authToken);
       res.json({ authToken: authToken });
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send("some error occoured");
+    }
+  }
+);
+// Route 2 : endpoint to login a user
+router.post(
+  "/login",
+  [
+    body("email", "Enter a valid email address").isEmail(),
+    body("password", "password cannot be blanked").exists(),
+  ],
+  async (req, res) => {
+    const error = validationResult(req);
+    if (!error.isEmpty()) {
+      return res.status(400).json({ error: error.array() });
+    }
+    const { email, password } = req.body;
+    try {
+      let user = await User.findOne({ email: email });
+      if (!user) {
+        return res.status(400).json({ error: "Wrong Credentials" });
+      }
+      const passCompare = await bcrypt.compare(password, user.password);
+      if (!passCompare) {
+        return res.status(400).json({ error: "Wrong Credentials" });
+      }
+      const data = {
+        user: {
+          id: user.id,
+        },
+      };
+      //JWT token generation
+      const authToken = jwt.sign(data, JWT_TOKEN);
+      res.json({ authToken });
     } catch (error) {
       console.error(error.message);
       res.status(500).send("some error occoured");
