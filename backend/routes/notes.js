@@ -45,7 +45,7 @@ router.get(
     }
   }
 );
-router.get("/updateroute", fetchuser, async (req, res) => {
+router.get("/updatenote/:id", fetchuser, async (req, res) => {
   try {
     const newNote = {};
     const { title, description, tag } = req.body;
