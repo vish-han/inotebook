@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import About from "./components/About";
 import NoteState from "../src/context/notes/NotesState";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Alert from "./components/Alert";
 // import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
       <NoteState>
         <BrowserRouter>
           <Navbar />
+          <Alert message="Your Notes is Added" />
           <div className="container">
             <Routes>
               <Route exact path="/" element={<Home />} />
