@@ -103,6 +103,11 @@ const NoteState = (props) => {
     },
   ];
   const [notes, setNotes] = useState(noteInital);
+  //Add a note
+  const addNote = () => {};
+  //Delete a note
+  const deleteNote = () => {};
+  //update a notes
   return (
     <noteContext.Provider value={{ notes, setNotes }}>
       {props.children}

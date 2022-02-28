@@ -10,7 +10,7 @@ const NotesItem = (props) => {
             <h5 class="card-title">{note.title}</h5>
             <p class="card-text">{note.description}</p>
             <i class="fa-solid fa-trash-can mx-2"></i>
-            <i class="fa-solid fa-trash-can mx-2"></i>
+            <i class="fa-solid fa-file-pen "></i>
           </div>
         </div>
       </div>
