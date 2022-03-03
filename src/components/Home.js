@@ -4,7 +4,6 @@ import AddNote from "./AddNote";
 const Home = () => {
   return (
     <>
-      <AddNote />
       <Notes></Notes>
     </>
   );
